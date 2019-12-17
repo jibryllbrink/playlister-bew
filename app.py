@@ -6,12 +6,12 @@ import os
 
 app = Flask(__name__)
 
-client = MongoClient(host=f'{host}?retryWrites=false')
+host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
 client = MongoClient(host=host)
 db = client.get_default_database()
 playlists = db.playlists
 comments = db.comments
-heroku
+
 app.config["MONGO_URI"] = "mongodb://localhost:27017/playlister_db"
 
 def video_url_creator(id_lst):
@@ -111,4 +111,4 @@ def comments_delete(comment_id):
 
 
 if __name__ == '__main__':
-app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
