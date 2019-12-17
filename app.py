@@ -69,10 +69,13 @@ def playlists_edit(playlist_id):
 @app.route('/playlists/<playlist_id>', methods=['POST'])
 def playlists_update(playlist_id):
     """Submit an edited playlist."""
+    videos = request.form.get('video_ids').split()
+
     updated_playlist = {
+        'videos': videos,
         'title': request.form.get('title'),
         'description': request.form.get('description'),
-        'videos': request.form.get('video_ids').split()
+        
     }
     playlists.update_one(
         {'_id': ObjectId(playlist_id)},
