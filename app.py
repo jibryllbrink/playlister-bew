@@ -7,13 +7,10 @@ import os
 app = Flask(__name__)
 
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
-client = MongoClient(host=f'{host}?retryWrites=false')
-
-# client = MongoClient(host=host)
+client = MongoClient(host=host)
 db = client.get_default_database()
 playlists = db.playlists
 comments = db.comments
-
 app.config["MONGO_URI"] = "mongodb://localhost:27017/playlister_db"
 
 def video_url_creator(id_lst):
@@ -57,12 +54,14 @@ def playlists_submit():
 
 
 @app.route('/playlists/<playlist_id>')
+@app.route('/playlists/<playlist_id>')
 def playlists_show(playlist_id):
     """Show a single playlist."""
     playlist = playlists.find_one({'_id': ObjectId(playlist_id)})
+    # Add the below line:
     playlist_comments = comments.find({'playlist_id': ObjectId(playlist_id)})
+    # Edit the return statement to be the following:
     return render_template('playlists_show.html', playlist=playlist, comments=playlist_comments)
-
 @app.route('/playlists/<playlist_id>/edit')
 def playlists_edit(playlist_id):
     """Show the edit form for a playlist."""
@@ -91,6 +90,9 @@ def playlists_delete(playlist_id):
     """Delete one playlist."""
     playlists.delete_one({'_id': ObjectId(playlist_id)})
     return redirect(url_for('playlists_index'))
+
+########## COMMENT ROUTES ##########
+
 
 @app.route('/playlists/comments', methods=['POST'])
 def comments_new():

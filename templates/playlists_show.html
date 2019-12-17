@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <a href="/">Back Home</a>
-    <title>Document</title>
-</head>
-<body>
+
     {% extends 'base.html' %}
 
     {% block content %}
@@ -28,9 +19,28 @@
     <button class='btn btn-primary' type='submit'>Delete</button>
     </form></p>
     </div>
+
 </div>
+
+<div class="container">
+    <div class="row">
+        {% include 'partials/comment_form.html' %}
+    </div>
+
+    <div class="row">
+        <!-- Show Comments -->
+        <ul style="list-style: none;">
+
+
+        {% for comment in comments %}
+        <li>
+            {% include 'partials/comment.html' %}
+        </li>
+        {% endfor %}
+    </ul>
+
+    </div>
+</div>
+
+
 {% endblock %}
-
-
-</body>
-</html>

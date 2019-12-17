@@ -1,0 +1,13 @@
+<div class='card p-3'>
+    <div class='card-block p-3'>
+        <h4 class='card-title'>{{ comment.title }}</h4>
+        <p class='card-text'>{{ comment.content }}</p>
+    </div>
+    <form method='POST' action='/playlists/comments/{{ comment._id }}'>
+        <button class='btn btn-link' type='submit'>Delete</button>
+    </form>
+</div>
+
+
+
+
