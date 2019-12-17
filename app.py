@@ -34,7 +34,7 @@ def playlists_new():
         'description': "",
         'rating': ""
     }
-    return render_template('playlists_new.html', playlist=playlist, title='New Playlist')
+    return render_template("playlists_new.html", playlist=playlist, title='New Playlist')
 
 @app.route('/playlists', methods=['POST'])
 def playlists_submit():
@@ -63,7 +63,7 @@ def playlists_show(playlist_id):
 @app.route('/playlists/<playlist_id>/edit')
 def playlists_edit(playlist_id):
     """Show the edit form for a playlist."""
-    playlist = playlists.find_one({'_id': ObjectId(playlist_id)})
+    playlist = playlists.find_one({'playlist_id': ObjectId(playlist_id)})
     return render_template('playlists_edit.html', playlist=playlist, title='Edit Playlist')
 
 @app.route('/playlists/<playlist_id>', methods=['POST'])
@@ -72,7 +72,7 @@ def playlists_update(playlist_id):
     updated_playlist = {
         'title': request.form.get('title'),
         'description': request.form.get('description'),
-        'videos': request.form.get('videos').split()
+        'videos': request.form.get('video_ids').split()
     }
     playlists.update_one(
         {'_id': ObjectId(playlist_id)},
